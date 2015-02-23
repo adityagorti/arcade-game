@@ -5,6 +5,12 @@ function getRandomArbitrary(min, max) {
 function randomYPos(){
      return Math.round(getRandomArbitrary(1,3))*75;
 }
+function rangeCheck(p1,p2){
+    if(p2>p1-50.5 && p2<p1+50.5){
+        return true;
+    }
+}
+
 // Enemies our player must avoid
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
@@ -23,14 +29,16 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x+this.x *dt;
-    if(this.x>606){
-        this.x=this.x+this.x*dt-606;
+    this.speed=this.x+200*dt;
+    this.x = this.speed;
+    if(this.x>505){
+        this.x=this.speed-505;
         this.y=randomYPos();
     }
-    if (this.x===player.x || this.y===player.y){
+    if (this.y===player.y && rangeCheck(player.x,this.x)){
+        alert('Collision!');
         player.x=202;
-        player.y=415;
+        player.y=375;
     }
 }
 
@@ -52,9 +60,6 @@ var Player = function(x,y){
 Player.prototype.update = function() {
     this.x=this.x;
     this.y=this.y;
-
-
-
 }
 
 Player.prototype.render = function(){
@@ -62,19 +67,21 @@ Player.prototype.render = function(){
 }
 
 Player.prototype.handleInput = function(keys){
+    
+    console.log('x='+this.x,'y='+this.y);
     switch(keys){
-        case 'left' : this.x=this.x-83;
+        case 'left' : if(this.x>0){this.x=this.x-101;}
                         break;
-        case 'right': this.x=this.x+83;
+        case 'right': if(this.x<404){this.x=this.x+101;}
                         break;
         case 'up': this.y=this.y-75;
                         break;
-        case 'down': this.y=this.y+75;
+        case 'down': if(this.y<375){this.y=this.y+75;}
                         break;
             }
 }
 
-var player = new Player(202, 415);
+var player = new Player(202, 375);
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player

@@ -47,6 +47,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+        reset();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -160,6 +161,11 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+       if(player.y===0){
+        alert('Reached the End!');
+        player.x=202;
+        player.y=375;
+       }
         // noop
     }
 
