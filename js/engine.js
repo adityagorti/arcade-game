@@ -27,6 +27,7 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 606;
+    canvas.setAttribute("id","main");
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -48,7 +49,7 @@ var Engine = (function(global) {
         update(dt);
         render();
         reset();
-        
+
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
