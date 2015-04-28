@@ -23,12 +23,21 @@ var Enemy = function(x,y) {
     this.y = y;
 }
 
+var succCount = 0;
+var collCount = 0;
+var collState =  false;
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    while(collState){
+         alert('Collision!');
+        player.x=202;
+        player.y=375;
+        collState = false;
+        }
     this.speed=this.x+200*dt;
     this.x = this.speed;
     if(this.x>505){
@@ -36,11 +45,12 @@ Enemy.prototype.update = function(dt) {
         this.y=randomYPos();
     }
     if (this.y===player.y && rangeCheck(player.x,this.x)){
-        alert('Collision!');
-        player.x=202;
-        player.y=375;
+       collCount++;
+       collState = true;
     }
+    return collCount;
 }
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -60,6 +70,10 @@ var Player = function(x,y){
 Player.prototype.update = function() {
     this.x=this.x;
     this.y=this.y;
+    if(this.y === 0){
+        succCount++;
+    }
+    return succCount;
 }
 
 Player.prototype.render = function(){
