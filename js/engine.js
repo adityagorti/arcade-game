@@ -49,6 +49,7 @@ var Engine = (function(global) {
         update(dt);
         render();
         reset();
+        setCountValue();
 
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -162,13 +163,28 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
+     var reachVal = false;
     function reset() {
-       if(player.y===0){
+       while(reachVal){
         alert('Reached the End!');
         player.x=202;
-        player.y=375;
+        player.y=375;              // resets player once end is reached
+        reachVal = false;
+       }
+       if(player.y===0){
+
+        
+        reachVal = true;
        }
         // noop
+    }
+
+    function setCountValue(){
+       var s1 =  doc.getElementById("succValue");
+       var c1 = doc.getElementById("collValue");
+       s1.innerHTML = succCount;                     //success and collision counter function
+       c1.innerHTML = collCount;
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to

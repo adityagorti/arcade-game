@@ -1,12 +1,12 @@
 function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min; // generate random positioning
 }
 
 function randomYPos(){
-     return Math.round(getRandomArbitrary(1,3))*75;
+     return Math.round(getRandomArbitrary(1,3))*75;  //generate random Y positioning
 }
 function rangeCheck(p1,p2){
-    if(p2>p1-50.5 && p2<p1+50.5){
+    if(p2>p1-50.5 && p2<p1+50.5){   // rangecheck for collisions
         return true;
     }
 }
@@ -33,20 +33,21 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     while(collState){
-         alert('Collision!');
-        player.x=202;
+         player.x=202;
         player.y=375;
+         alert('Collision!');
+                  // allows the player to reach the same block as the enemy before the alert is triggered
         collState = false;
         }
     this.speed=this.x+200*dt;
     this.x = this.speed;
     if(this.x>505){
-        this.x=this.speed-505;
+        this.x=this.speed-505;      // resets the enemy to a different position on the map once it reaches the end
         this.y=randomYPos();
     }
     if (this.y===player.y && rangeCheck(player.x,this.x)){
-       collCount++;
-       collState = true;
+       collCount++; 
+       collState = true;    // collision check
     }
     return collCount;
 }
@@ -82,7 +83,6 @@ Player.prototype.render = function(){
 
 Player.prototype.handleInput = function(keys){
     
-    console.log('x='+this.x,'y='+this.y);
     switch(keys){
         case 'left' : if(this.x>0){this.x=this.x-101;}
                         break;

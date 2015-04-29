@@ -5,3 +5,15 @@ body {
 	float:center;
 }
 
+#succCounter, #collCounter {
+	position: relative;
+}
+
+#succCounter p, #collCounter p{
+	font-size: 18px;
+	position: relative;
+	top: -40px;
+	right: -150px;
+
+}
+
